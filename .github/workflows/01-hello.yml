@@ -1,6 +1,6 @@
 # This first workflow is intentionally tiny.
 # It helps students see what a GitHub Actions run looks like.
-name: 01 Hello Workfloww
+name: 01 Hello Workflowwww
 
 on:
   # Run automatically when this workflow file changes.
@@ -8,11 +8,16 @@ on:
     paths:
       - ".github/workflows/01-hello.yml"
   # Allow a safe manual run from the Actions tab too.
+  pull_request:
+    types: [closed]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   say-hello:
     # GitHub provides a fresh runner for the job.
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
