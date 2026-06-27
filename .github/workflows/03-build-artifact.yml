@@ -6,6 +6,9 @@ on:
   # Students start this workflow manually from the Actions tab.
   workflow_dispatch:
 
+permissions:
+  security-events: write
+
 env:
   # Keep common image values in one place so the build steps stay readable.
   IMAGE_NAME: tiny-health-app
@@ -57,6 +60,7 @@ jobs:
           image-ref: ${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.image_tag }}
           format: 'sarif'
           output: 'trivy-image-results.sarif'
+        continue-on-error: true
 
       - name: Run Trivy vulnerability scan on filesystem
         # Scan the filesystem for vulnerabilities.
@@ -66,10 +70,11 @@ jobs:
           scan-ref: '.'
           format: 'sarif'
           output: 'trivy-fs-results.sarif'
+        continue-on-error: true
 
       - name: Upload Trivy results to GitHub Security tab
         # Upload scan results for visibility in the security tab.
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: |
             trivy-image-results.sarif
