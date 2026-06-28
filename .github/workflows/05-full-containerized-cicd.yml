@@ -1,6 +1,6 @@
 # This optional workflow shows a fuller CI/CD shape in one file.
 # It stays beginner-safe by keeping containerization real but deployment simulated.
-name: 90 OPTIONAL Full Containerized CI/CD Workflow
+name: 90 OPTIONAL Full Containerized CI/CD Workfloww
 
 on:
   # Keep this optional example manual-only so it does not distract from the core labs.
